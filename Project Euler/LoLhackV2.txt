@@ -1,0 +1,38 @@
+import java.awt.AWTException;
+import java.awt.event.KeyEvent;
+import java.awt.Robot;
+import java.awt.Color;
+import com.sun.jna.*;
+import com.sun.jna.platform.*;
+
+public class lol{
+
+	static Color black = new Color(0,0,0);
+	static Color white = new Color(255,255,255);
+
+	public static void main(String[] args) {
+		KeyboardUtils ky = new KeyboardUtils();
+
+		try{
+			Robot r = new Robot();
+			while(true){
+				System.out.println("waiting for key..");r.delay(100);
+				if(ky.isPressed(0x41)){//A key
+					r.keyPress(KeyEvent.VK_W);
+					r.keyRelease(KeyEvent.VK_W);
+					System.out.println("pressed pac");r.delay(100);
+					while(true){
+						System.out.println("waiting for color..");r.delay(100);
+						if(r.getPixelColor(50, 50).equals(white)){
+							r.keyPress(KeyEvent.VK_W);
+							r.delay(500);
+							r.keyRelease(KeyEvent.VK_W);
+							System.out.println("got color");r.delay(100);
+							break;
+						}
+					}
+				}
+			}
+		}catch (AWTException e){}	
+	}//public static void main
+}//public class

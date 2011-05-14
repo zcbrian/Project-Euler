@@ -1,0 +1,43 @@
+import java.awt.AWTException;
+import java.awt.event.KeyEvent;
+import java.awt.Robot;
+import java.awt.Color;
+import com.sun.jna.*;
+import com.sun.jna.platform.*;
+
+public class lol{
+
+	static final Color blue = new Color(255,255,255);
+	static final Color red = new Color(255,255,255);
+	static final Color gold = new Color(255,255,255);
+
+	public static void GetCard(Robot r, Color selectedColor){
+		r.keyPress(KeyEvent.VK_W);
+		r.keyRelease(KeyEvent.VK_W);
+		while(true){
+			if(r.getPixelColor(50, 50).equals(selectedColor)){//change pixel here
+				r.keyPress(KeyEvent.VK_W);
+				r.delay(500);
+				r.keyRelease(KeyEvent.VK_W);
+				break;
+			}
+		}
+	}//public static void Get Card 
+		
+	public static void main(String[] args) {
+		try{
+			Robot r = new Robot();
+			while(true){
+				if(KeyboardUtils.isPressed(0x41)){//A key
+					GetCard(r,blue);
+				}
+				if(KeyboardUtils.isPressed(0x41)){//A key
+					GetCard(r,red);
+				}
+				if(KeyboardUtils.isPressed(0x41)){//A key
+					GetCard(r,gold);
+				}
+			}
+		}catch (AWTException e){}	
+	}//public static void main
+}//public class
